@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="metric-grid top-metrics">
+    <div><strong>{{ metrics.total_requests }}</strong><span>Total Requests</span></div>
+    <div><strong>{{ metrics.successful_automations }}</strong><span>Successful</span></div>
+    <div><strong>{{ metrics.failed_automations }}</strong><span>Failed</span></div>
+    <div><strong>{{ metrics.average_execution_time }}s</strong><span>Avg Execution</span></div>
+    <div><strong>{{ metrics.estimated_hours_saved }}</strong><span>Hours Saved</span></div>
+    <div><strong>{{ metrics.automation_rate }}%</strong><span>Automation Rate</span></div>
+    <div><strong>${{ "%.2f"|format(metrics.estimated_cost_savings) }}</strong><span>Cost Savings</span></div>
+    <div><strong>${{ "%.6f"|format(metrics.estimated_ai_cost) }}</strong><span>AI Cost</span></div>
+</section>
+
+<section class="dashboard-grid">
+    <div class="panel">
+        <div class="section-heading">
+            <span class="eyebrow">Analytics</span>
+            <h2>Department Distribution</h2>
+        </div>
+        <canvas id="departmentChart" height="220"></canvas>
+    </div>
+    <div class="panel">
+        <div class="section-heading">
+            <span class="eyebrow">Risk</span>
+            <h2>Complexity Mix</h2>
+        </div>
+        <canvas id="complexityChart" height="220"></canvas>
+    </div>
+    <div class="panel">
+        <div class="section-heading">
+            <span class="eyebrow">Priority</span>
+            <h2>Average Priority by Department</h2>
+        </div>
+        <canvas id="priorityChart" height="220"></canvas>
+    </div>
+    <div class="panel">
+        <div class="section-heading">
+            <span class="eyebrow">Failures</span>
+            <h2>Recent Failure Tracking</h2>
+        </div>
+        {% if metrics.recent_failures %}
+            <ul class="failure-list">
+            {% for failure in metrics.recent_failures %}
+                <li>#{{ failure.request_id }} {{ failure.category }}: {{ failure.error_message }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No recent failures recorded.</p>
+        {% endif %}
+    </div>
+</section>
+<script>
+window.dashboardMetrics = {{ metrics|tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

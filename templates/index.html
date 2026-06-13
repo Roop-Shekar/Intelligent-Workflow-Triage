@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="workspace-grid">
+    <form class="panel intake-form" method="post" action="{{ url_for('submit_request') }}" enctype="multipart/form-data">
+        <div class="section-heading">
+            <span class="eyebrow">Step 1</span>
+            <h2>Submit an Automation Opportunity</h2>
+        </div>
+        {% if error %}<p class="alert">{{ error }}</p>{% endif %}
+        <label>
+            Requester
+            <input name="requester_name" placeholder="Asha Sharma">
+        </label>
+        <label>
+            Department Hint
+            <select name="department_hint">
+                <option value="">Let AI classify</option>
+                <option>HR</option>
+                <option>Finance</option>
+                <option>Legal</option>
+                <option>Operations</option>
+            </select>
+        </label>
+        <label>
+            Natural Language Request
+            <textarea name="raw_request" rows="9" placeholder="Describe the workflow, pain point, inputs, and desired output."></textarea>
+        </label>
+        <label>
+            Finance CSV Upload
+            <input type="file" name="invoice_csv" accept=".csv">
+        </label>
+        <button type="submit">Classify and Execute</button>
+    </form>
+
+    <aside class="panel">
+        <div class="section-heading">
+            <span class="eyebrow">Examples</span>
+            <h2>Representative Intake</h2>
+        </div>
+        <div class="example-list">
+            {% for example in examples %}
+            <button class="example" type="button" data-example="{{ example }}">{{ example }}</button>
+            {% endfor %}
+        </div>
+        <div class="architecture-note">
+            <h3>What Happens After Submit</h3>
+            <p>Gemini classifies the request, the router dispatches it to a department module, SQLite records execution telemetry, and the dashboard calculates operational impact.</p>
+        </div>
+    </aside>
+</section>
+<script src="{{ url_for('static', filename='js/intake.js') }}"></script>
+{% endblock %}

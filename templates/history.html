@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+    <div class="section-heading">
+        <span class="eyebrow">Audit Trail</span>
+        <h2>Request History</h2>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Submitted</th>
+                    <th>Category</th>
+                    <th>Module</th>
+                    <th>Status</th>
+                    <th>Potential</th>
+                    <th>Hours</th>
+                    <th>Savings</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in requests %}
+                <tr>
+                    <td><a href="{{ url_for('request_detail', request_id=item.id) }}">#{{ item.id }}</a></td>
+                    <td>{{ item.submitted_at[:19].replace("T", " ") }}</td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.module_name }}</td>
+                    <td><span class="status {{ item.status|lower }}">{{ item.status }}</span></td>
+                    <td>{{ item.automation_potential }}%</td>
+                    <td>{{ item.hours_saved }}</td>
+                    <td>${{ "%.2f"|format(item.cost_savings) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

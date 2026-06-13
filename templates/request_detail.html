@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel detail-panel">
+    <div class="section-heading">
+        <span class="eyebrow">Request #{{ automation_request.id }}</span>
+        <h2>{{ automation_request.module_name }}</h2>
+    </div>
+    <div class="status-row">
+        <span class="status {{ automation_request.status|lower }}">{{ automation_request.status }}</span>
+        <span>{{ automation_request.category }}</span>
+        <span>Priority {{ automation_request.priority_score }}/10</span>
+        <span>{{ automation_request.automation_potential }}% potential</span>
+        <span>{{ automation_request.complexity }} complexity</span>
+    </div>
+    <h3>Original Request</h3>
+    <p class="request-text">{{ automation_request.raw_request }}</p>
+    <h3>Automation Output</h3>
+    <p>{{ automation_request.result_summary }}</p>
+    <div class="metric-grid">
+        <div><strong>{{ automation_request.hours_saved }}</strong><span>Hours Saved</span></div>
+        <div><strong>${{ "%.2f"|format(automation_request.cost_savings) }}</strong><span>Cost Savings</span></div>
+        <div><strong>{{ automation_request.token_usage }}</strong><span>Tokens</span></div>
+        <div><strong>${{ "%.6f"|format(automation_request.estimated_cost) }}</strong><span>AI Cost</span></div>
+    </div>
+</section>
+{% endblock %}

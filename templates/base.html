@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Intelligent Workflow Triage System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header class="app-header">
+        <div>
+            <span class="eyebrow">Enterprise Automation Intake</span>
+            <h1>Intelligent Workflow Triage System</h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}">Intake</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('history') }}">History</a>
+            <a href="{{ url_for('reports') }}">Reports</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

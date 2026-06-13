@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+    <div class="section-heading">
+        <span class="eyebrow">Generated</span>
+        <h2>{{ report.title }}</h2>
+    </div>
+    <p>PDF: {{ report.pdf_path }}</p>
+    <p>Google Doc: {% if report.google_doc_url %}<a href="{{ report.google_doc_url }}">Open report</a>{% else %}Not configured{% endif %}</p>
+    <div class="metric-grid">
+        <div><strong>{{ report.metrics.total_requests }}</strong><span>Requests</span></div>
+        <div><strong>{{ report.metrics.estimated_hours_saved }}</strong><span>Hours Saved</span></div>
+        <div><strong>${{ "%.2f"|format(report.metrics.estimated_cost_savings) }}</strong><span>Savings</span></div>
+        <div><strong>{{ report.metrics.automation_rate }}%</strong><span>Automation Rate</span></div>
+    </div>
+</section>
+{% endblock %}

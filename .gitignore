@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+database/*.db
+database/*.db-*
+logs/*.log
+reports/*.pdf
+reports/*.txt
+reports/*.json
